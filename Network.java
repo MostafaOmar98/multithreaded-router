@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 
 public class Network {
@@ -21,6 +22,19 @@ public class Network {
             type = sc.next();
             deviceList[i] = new Device(name, type, router);
         }
+        File logFile = new File("log.txt");
+        try {
+            logFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            PrintStream logFileOutStream = new PrintStream(new FileOutputStream(logFile));
+            System.setOut(logFileOutStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
         // starting connections
         Thread[] connections = new Thread[numberOfDevices];
